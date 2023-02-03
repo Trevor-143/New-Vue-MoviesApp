@@ -1,12 +1,14 @@
 <template>
-  <header>
-    <router-link to="/">
-      <h1><span>DISCOVER:</span>Movies</h1>
-    </router-link>
-  </header>
-  <main>
-    <router-view />
-  </main>
+  <div class="app">
+    <header>
+      <router-link to="/">
+        <h1><span>DISCOVER: </span>Movies</h1>
+      </router-link>
+    </header>
+    <main>
+      <router-view />
+    </main>
+  </div>
 </template>
 
 <style>
@@ -22,6 +24,7 @@ body {
   background-color: black;
   color: #fff;
 }
+
 
 a {
   text-decoration: none;
