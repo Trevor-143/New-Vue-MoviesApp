@@ -1,20 +1,26 @@
 <template>
   <div class="home">
     <div class="featured_card">
-      <router-link to="/movie/tt0409591">
-        <img src="@/images/bleach.jpg" alt="bleach_poster" class="featured_img">
+
+      <header>
+        <router-link to="/">
+          <h1><span>Movie</span>Discovery</h1>
+        </router-link>
+      </header>
+      <router-link to="/">
+        <img src="@/images/wall.jpg" alt="bleach_poster" class="featured_img">
         <div class="details">
-          <h3>Bleach</h3>
-          <p>It follows the adventures of a teenager Ichigo Kurosaki, who inherits his parents' destiny after he obtains the powers of a Soul Reaper—a death personification similar to the Grim Reaper—from another Soul Reaper, Rukia Kuchiki.</p>
+          <p>Movie Discovery provides up-to-date information about new and upcoming films, including detailed descriptions, cast information, reviews, and trailers. With our easy-to-use search engine, you can quickly find information about any movie ever made. Plus, our site also offers exclusive content and news, so you can stay ahead of the curve when it comes to the latest films. Try Movie Discovery today and unlock the world of cinema!</p>
         </div>
       </router-link>
     </div>
     <form @submit.prevent="SearchMovies() " class="search_box">
-      <input type="text" placeholder="search" v-model="search">
+      <input type="text" placeholder="eg. avengers" v-model="search">
       <input type="submit" value="search">
     </form>
 
     <div class="movies_list">
+
       <div class="movie" v-for="movie in movies" :key="movie.id">
         <router-link :to="'/movie/' + movie.id" class="movie_link">
           <img :src="movie.poster_path" alt="movie poster" class="product_img">
@@ -25,29 +31,40 @@
           </div>
         </router-link>
       </div>
+
+      <div class="movie" v-for="show in shows" :key="show.id">
+        <router-link :to="'/movie/' + show.id" class="movie_link">
+          <img :src="show.poster_path" alt="movie poster" class="product_img">
+          <div class="detail">
+            <div class="type"> {{ show.vote_average }} </div>
+            <h3>{{ show.original_title }}</h3>
+            <h4>{{ show.release_date }}</h4>
+          </div>
+        </router-link>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
 import env from "@/env";
 
 export default {
   setup() {
     const search =ref('');
     const movies = ref([]);
+    const shows = ref([]);
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': env.apiKey,
+        'X-RapidAPI-Host': 'advanced-movie-search.p.rapidapi.com'
+      }
+    };
     const SearchMovies = () => {
       if (search.value != '') {
-        // console.log(search.value);
-        const options = {
-          method: 'GET',
-          headers: {
-            'X-RapidAPI-Key': env.apiKey,
-            'X-RapidAPI-Host': 'advanced-movie-search.p.rapidapi.com'
-          }
-        };
-        
         fetch(`https://advanced-movie-search.p.rapidapi.com/search/movie?query=${search.value}&page=1`, options)
           .then(response => response.json())
           .then(data => {
@@ -55,20 +72,56 @@ export default {
             search.value = '';
             console.log(movies.value);
           });
-          // .catch(err => console.error(err));
       }
     }
+    onBeforeMount(() => {
+      if (search.value == '') {
+        fetch(`https://advanced-movie-search.p.rapidapi.com/search/movie?query=avengers&page=1`, options)
+        .then(response => response.json())
+        .then(data => {
+          shows.value = data.results;
+          console.log(shows.value);
+        });
+      }
+    })
 
     return {
       search,
       movies,
-      SearchMovies
+      shows,
+      SearchMovies,
     }
   }
 }
 </script>
 
 <style scoped>
+
+  header {
+    display: flex;
+    position: absolute;
+    top: 5;
+    left: 0;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 0;
+    z-index: 10;
+    margin-left: 16px;
+  }
+  
+  header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    background: #000000;
+    padding: 20px;
+    border-radius: 15px;
+  }
+  
+  header h1 span {
+    letter-spacing: 5px;
+  }
+  
+
   .featured_card {
     position: relative;
   }
@@ -91,8 +144,8 @@ export default {
     color: #ffffff;
 
   }
-  .details h3 {
-    margin-bottom: 16px;
+  .details p {
+    max-width: 600px;
   }
   .search_box {
     display: flex;
@@ -110,15 +163,15 @@ export default {
 
   }
   .search_box input[type='text'] {
-    width: 60%;
+    width: 90%;
     color: #000000;
-    background: rgba(255, 255, 255, 0.5);
+    background: #ffffff;
     border: 2px solid rgba(255, 255, 255, 0);
     
     font-size: 20px;
     padding: 10px 16px;
-    border-top-left-radius: 99px;
-    border-bottom-left-radius: 99px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     transition: 0.4s;
   }
   input::placeholder {
@@ -128,15 +181,15 @@ export default {
   input[type='text']:focus {
     background: #000000;
     color: #ffffff;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    border: 2px solid #ffffff;
   }
   .search_box input[type='submit'] {
     width: 100%;
     max-width: 100px;
     background: #ffffff;
     color: #000000;
-    border-top-right-radius: 99px;
-    border-bottom-right-radius: 99px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     padding: 14px;
     font-size: 17px;
     text-transform: uppercase;
@@ -146,6 +199,8 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
   }
   .movie {
     display: flex;
@@ -155,13 +210,13 @@ export default {
   } 
   .movie_link {
     position: relative;
-    height: 250px;
-    width: 200px;
+    height: 300px;
+    width: 230px;
     margin: 15px;
   }
   .movie_link img {
-    height: 250px;
-    width: 200px;
+    height: 300px;
+    width: 230px;
     border-radius: 10px;
     object-fit: cover;
   }

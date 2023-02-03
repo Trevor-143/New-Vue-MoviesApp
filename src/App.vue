@@ -1,13 +1,12 @@
 <template>
   <div class="app">
-    <header>
-      <router-link to="/">
-        <h1><span>DISCOVER: </span>Movies</h1>
-      </router-link>
-    </header>
     <main>
       <router-view />
     </main>
+    <footer>
+      <h3>&copy 2023</h3>
+      <p>This application is powered by the Advanced Movie Search api on rapidapi.com</p>
+    </footer>
   </div>
 </template>
 
@@ -24,27 +23,21 @@ body {
   background-color: black;
   color: #fff;
 }
-
-
 a {
   text-decoration: none;
 }
-
-header {
+footer {
+  height: 200px;
+  margin-bottom: 0px;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-start;
-  padding: 10px 16px;
-  background-color: #000000;
 }
-
-header h1 {
-  color: #ffffff;
-  font-size: 28px;
-}
-
-header h1 span {
-  letter-spacing: 5px;
+footer p {
+  max-width: 400px;
+  text-align: center;
+  padding: 10px 0;
 }
 
 </style>
