@@ -8,7 +8,7 @@
         </router-link>
       </header>
       <router-link to="/">
-        <img src="@/images/wall.jpg" alt="bleach_poster" class="featured_img">
+        <img src="@/images/wall.jpg" alt="app poster" class="featured_img">
         <div class="details">
           <p>Movie Discovery provides up-to-date information about new and upcoming films, including detailed descriptions, cast information, reviews, and trailers. With our easy-to-use search engine, you can quickly find information about any movie ever made. Plus, our site also offers exclusive content and news, so you can stay ahead of the curve when it comes to the latest films. Try Movie Discovery today and unlock the world of cinema!</p>
         </div>
@@ -70,6 +70,7 @@ export default {
           .then(data => {
             movies.value = data.results;
             search.value = '';
+            shows.value = '';
             console.log(movies.value);
           });
       }
