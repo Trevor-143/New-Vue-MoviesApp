@@ -16,7 +16,8 @@
                 </div>
             </div>
             <div class="overview">
-                <p>{{ movie.overview }}</p>
+                <p class="head">Overview</p>
+                <p class="para">{{ movie.overview }}</p>
             </div>
         </div>
     </div>
@@ -61,10 +62,11 @@ export default {
     } */
 
     .movie_detail {
-        height: 100vh;
+        min-height:100vh;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+        position: relative;
     }
 
     .detail_top {
@@ -73,10 +75,16 @@ export default {
         justify-content: center;
         align-items: center;
     }
+    @media screen and (max-width: 500px) {
+        .detail_top {
+            flex-direction: column;
+            padding: 20px;
+        }
+    }
     .det {
         width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
+        min-height: 100vh;
+        background-color: rgba(0, 0, 0, 0.8);
     }
     .det h2 {
         font-size: 25px;
@@ -103,11 +111,21 @@ export default {
         justify-content: center;
         align-items: center;
         text-align: center;
+        flex-direction: column;
         margin: 15px;
 
+    }
+    .head {
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 10px;
     }
     .overview p {
         max-width: 600px;
     }
+    .para {
+        padding-bottom: 20px;
+    }
+    
 
 </style>
