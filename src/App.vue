@@ -22,17 +22,23 @@
 body {
   background-color: black;
   color: #fff;
+  /* margin-bottom: 150px; */
 }
 a {
   text-decoration: none;
 }
 footer {
-  height: 200px;
-  margin-bottom: 0px;
+  /* position: fixed; */
+  height: 150px;
+  /* bottom: 0; */
+  /* left: 0; */
+  /* right: 0; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: black;
+  
 }
 footer p {
   max-width: 400px;

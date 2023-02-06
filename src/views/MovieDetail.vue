@@ -1,17 +1,23 @@
 <template>
-    <div class="movie_detail">
-        <div class="detail_top">
-            <img :src="movie.poster_path" alt="">
-            <div class="information">
-                <h3><span>Title:</span>{{ movie.original_title }}</h3>
-                <h3><span>Date:</span>{{ movie.release_date }}</h3>
-                <h3><span>Time:</span>{{ movie.runtime }} mins</h3>
-                <h3><span>Rating:</span>{{ movie.vote_average }}</h3>
-                <h3><span>Budget:</span>{{ movie.budget }}</h3>
+    <div v-bind:style="{ 'background-image': 'url('+movie.backdrop_path+')' }" class="movie_detail">
+        <div class="det">
+            <h2>{{ movie.original_title }} details</h2>
+            <div class="detail_top">
+                <img :src="movie.poster_path" alt="">
+                <div class="information">
+                    <h3><span>Title:</span>{{ movie.original_title }}</h3>
+                    <h3><span>Tagline:</span>{{ movie.tagline }}</h3>
+                    <h3><span>Date:</span>{{ movie.release_date }}</h3>
+                    <h3><span>Time:</span>{{ movie.runtime }} mins</h3>
+                    <h3><span>Rating:</span>{{ movie.vote_average }}</h3>
+                    <h3><span>Budget:</span>{{ movie.budget }}</h3>
+                    <h3><span>Revenue:</span>{{ movie.revenue }}</h3>
+                    <h3><span>Status:</span>{{ movie.status }}</h3>
+                </div>
             </div>
-        </div>
-        <div class="overview">
-            <p>{{ movie.overview }}</p>
+            <div class="overview">
+                <p>{{ movie.overview }}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -48,3 +54,60 @@ export default {
 }
 
 </script>
+
+<style>
+    /* * {
+        outline: red solid 1px;
+    } */
+
+    .movie_detail {
+        height: 100vh;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .detail_top {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .det {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+    .det h2 {
+        font-size: 25px;
+        text-align: center;
+        padding: 20px;
+        color: #ececec;
+    }
+    .detail_top img {
+        width: 200px;
+        border-radius: 10px;
+        margin: 10px;
+
+    }
+    .information h3 {
+        font-size: 18px;
+    }
+    .information h3 span {
+        color: #cacaca;
+        text-transform: lowercase;
+        padding-right: 25px;
+    }
+    .overview {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 15px;
+
+    }
+    .overview p {
+        max-width: 600px;
+    }
+
+</style>
